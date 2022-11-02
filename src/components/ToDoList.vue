@@ -13,7 +13,7 @@
     <div class="mt-4 flex flex-row flex-wrap justify-between mx-auto w-10/12">
       <ToDoListItem v-for="(item, key) in displayList"
                     @remove="removeItem(item.id)"
-                    :key="key" class="max-w-[25%] min-w-[350px]"
+                    :key="key" class="max-w-[25%] min-w-[400px]"
                     :value="item">
       </ToDoListItem>
     </div>
