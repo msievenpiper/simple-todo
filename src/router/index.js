@@ -9,11 +9,11 @@ const router = createRouter({
       name: 'home',
       component: HomeView // No sense in code splitting the home page
     },
-    {
-      path: '/egg',
-      name: 'egg',
-      component: () => import('../views/EasterEggView.vue')
-    },
+    // {
+    //   path: '/egg',
+    //   name: 'egg',
+    //   component: () => import('../views/EasterEggView.vue')
+    // },
     {
       path: '/about',
       name: 'about',

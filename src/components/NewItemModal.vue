@@ -3,12 +3,10 @@
     <form @submit.prevent="save">
       <div class="grid gap-6 mb-6 md:grid-cols-1">
         <div>
-          <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Title</label>
-          <input v-model="item.title" type="text" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+          <BasicTextField ref="title" v-model="item.title" label="Title" required></BasicTextField>
         </div>
         <div>
-          <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-          <textarea v-model="item.description" id="description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+          <BasicTextField area ref="description" v-model="item.description"></BasicTextField>
         </div>
       </div>
     </form>
@@ -23,10 +21,11 @@
 <script>
 import BasicModal from "@/components/BasicModal.vue";
 import InlineButton from "@/components/InlineButton.vue";
+import BasicTextField from "@/components/BasicTextField.vue";
 
 export default {
   name: "NewItemModal",
-  components: {InlineButton, BasicModal},
+  components: {BasicTextField, InlineButton, BasicModal},
   data() {
     return {
       showModal: false,
@@ -47,9 +46,18 @@ export default {
       this.reset();
       this.showModal = false;
     },
+    validate() {
+      if (this.item.title == '') {
+        this.$refs.title.errors("Title is required");
+        return false;
+      }
+      return true;
+    },
     save() {
-      this.$emit('created', this.item);
-      this.close();
+      if (this.validate()) {
+        this.$emit('created', this.item);
+        this.close();
+      }
     }
   },
   beforeMount() {
